@@ -19,7 +19,6 @@ shader_parameter/glow_radius = 0.5
 radius = 8.0
 
 [node name="WavePiece" type="Area2D"]
-scale = Vector2(2, 2)
 collision_layer = 2
 script = ExtResource("1_cxh0a")
 
