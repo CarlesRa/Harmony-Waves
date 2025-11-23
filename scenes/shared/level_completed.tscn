@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://168pc0g162g8"]
+
+[ext_resource type="Shader" uid="uid://bqjm3wygrfa3d" path="res://assets/shaders/neon_glow.gdshader" id="1_7h6g4"]
+[ext_resource type="FontFile" uid="uid://chjp582vkc0a5" path="res://assets/fonts/NeonSans.ttf" id="1_23jug"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7h6g4"]
+shader = ExtResource("1_7h6g4")
+shader_parameter/neon_color = Color(0, 0.8, 1, 1)
+shader_parameter/pulse_intensity = 1.0
+shader_parameter/glow_radius = 0.5
+
+[node name="LevelCompleted" type="CanvasLayer"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(1, 1, 1, 0.5882353)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="HSplitContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+material = SubResource("ShaderMaterial_7h6g4")
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_23jug")
+theme_override_font_sizes/font_size = 150
+text = "LEVEL COMPLETED!"
+
+[node name="Control" type="Control" parent="CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+
+[node name="NextLevelButton" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_23jug")
+theme_override_font_sizes/font_size = 100
+text = "Next level"
+icon_alignment = 2

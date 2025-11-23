@@ -3,6 +3,7 @@ extends Node
 signal level_changed(new_level_loaded)
 signal snaps_to_win_sign(new_snaps_to_win)
 signal current_snaps_sign(new_current_snap)
+signal level_completed(level_completed)
 
 var current_level: Node = null
 var level_container: Node = null
@@ -20,6 +21,8 @@ var current_snaps:
 		return _current_snaps
 	set(value):
 		_current_snaps = value
+		if (_current_snaps >= _snaps_to_win):
+			emit_signal("level_completed")
 		emit_signal('current_snaps_sign', value)
 
 func set_level_container(container: Node) -> void:
@@ -38,6 +41,16 @@ func load_level(level_path: String, level_label: String) -> void:
 	current_level = level_scene.instantiate()
 	level_container.add_child(current_level)
 	emit_signal('level_changed', level_label)
+
+func load_level_overlapping(level_path: String) -> void:
+	var level_scene = load(level_path)
+	if not level_scene:
+		push_error("Error loading level: " + level_path)
+		return
+	
+	current_level = level_scene.instantiate()
+	level_container.add_child(current_level)
+	
 
 func unload_level() -> void:
 	if current_level:

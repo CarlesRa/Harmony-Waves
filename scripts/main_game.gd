@@ -4,6 +4,7 @@ extends Node2D
 @onready var camera = $Camera2D
 
 func _ready() -> void:
+	GameManager.connect("level_completed", _go_to_level_complete_scene)
 	GameManager.set_level_container(level_container)
 	GameManager.load_level("res://scenes/levels/level_01.tscn", "Level 1")
 	
@@ -41,3 +42,7 @@ func _adjust_camera_to_fit_level() -> void:
 	var zoom_x = viewport_size.x / (level_size.x + 200)
 	var zoom_y = viewport_size.y / (level_size.y + 200)
 	camera.zoom = Vector2.ONE * min(zoom_x, zoom_y)
+
+func _go_to_level_complete_scene():
+	GameManager.load_level_overlapping("res://scenes/shared/level_completed.tscn")
+	
