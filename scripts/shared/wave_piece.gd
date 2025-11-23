@@ -17,6 +17,7 @@ class_name WavePiece
 @onready var connector_1_point: Node2D = $PieceConnector1/Connector
 @onready var connector_2: PieceConnector = $%PieceConnector2
 @onready var connector_2_point: Node2D = $PieceConnector2/Connector
+@onready var audio_player: AudioStreamPlayer = AudioStreamPlayer.new()
 
 const SNAP_DISTANCE: float = 300.0
 
@@ -27,7 +28,9 @@ var drag_offset: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	_set_connectors()
-	
+	_setup_audio()
+	if is_piece_connected:
+		start_audio_synced()
 
 func _process(_delta: float) -> void:
 	if is_dragging:
@@ -42,6 +45,41 @@ func _set_connectors() -> void:
 	connector_2.connector_id = C2_connector_id
 	connector_2.target_connector_id = C2_target_id
 	connector_2.initialize_connector()
+
+func _setup_audio() -> void:
+	add_child(audio_player)
+	if music_stream:
+		audio_player.stream = music_stream
+		audio_player.volume_db = 0
+		audio_player.bus = "Master"
+		audio_player.finished.connect(_on_audio_finished)  # ← AÑADIR ESTO
+
+func _on_audio_finished() -> void:
+	if is_piece_connected and music_stream:
+		audio_player.play()
+
+func start_audio_synced() -> void:
+	print("🎵 start_audio_synced() - AudioManager.is_playing: ", AudioManager.is_playing)
+	
+	if not music_stream or audio_player.playing:
+		return
+	
+	# Si no hay música sonando, empezar inmediatamente
+	if not AudioManager.is_playing:
+		print("▶️ Iniciando AudioManager y primera pieza")
+		AudioManager.start_music()  # ← Esto debería activar is_playing = true
+		audio_player.play()
+		return
+	
+	# Si ya hay música, esperar al siguiente loop
+	var wait_time = AudioManager.get_time_to_next_loop()
+	print("⏰ Esperando ", wait_time, " segundos al siguiente loop")
+	await get_tree().create_timer(wait_time).timeout
+	audio_player.play()
+	print("▶️ Audio reproducido sincronizado!")
+
+func stop_audio() -> void:
+	audio_player.stop()
 
 func _on_wave_piece_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if not is_piece_connected and event is InputEventMouseButton:
@@ -97,6 +135,7 @@ func _try_snap_on_release() -> void:
 	is_piece_connected = true
 	connector_1.is_active = true
 	connector_2.is_active = true
+	start_audio_synced()
 	colliding_targets.clear()
 
 # Connector 1
