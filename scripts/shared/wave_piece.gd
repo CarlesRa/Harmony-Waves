@@ -121,9 +121,7 @@ func _start_drag() -> void:
 func _end_drag() -> void:	
 	if not is_dragging: return
 	z_index = 0
-	var connected: bool = _try_snap_on_release()
-	if not connected:
-		_return_to_original_position()
+	_try_snap_on_release()
 	if drag_sound:
 		AudioManager.stop_sfx(drag_sound)
 	is_dragging = false
@@ -142,6 +140,7 @@ func _try_snap_on_release() -> bool:
 			valid_connections.append(info)
 
 	if valid_connections.is_empty():
+		_return_to_original_position()
 		return false
 
 	var first_connection = valid_connections[0]
