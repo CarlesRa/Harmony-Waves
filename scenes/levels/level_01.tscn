@@ -5,12 +5,31 @@
 [node name="Level_01" type="Node2D"]
 
 [node name="WavePiece" parent="." instance=ExtResource("1_m802k")]
-position = Vector2(256, 216)
-C1_target_id = 3
-C2_target_id = 4
+position = Vector2(416, 288)
+is_piece_connected = true
+C1_connector_id = -1
+C1_target_id = 1
+C2_connector_id = -1
+C2_target_id = 2
 
 [node name="WavePiece2" parent="." instance=ExtResource("1_m802k")]
 position = Vector2(576, 128)
 rotation = 1.5707964
-C1_connector_id = 3
-C2_connector_id = 0
+C1_connector_id = -1
+C1_target_id = 4
+C2_connector_id = 1
+C2_target_id = 3
+
+[node name="WavePiece3" parent="." instance=ExtResource("1_m802k")]
+position = Vector2(624, 464)
+rotation = 1.5707964
+C1_connector_id = -1
+C1_target_id = 5
+C2_target_id = 4
+
+[node name="WavePiece4" parent="." instance=ExtResource("1_m802k")]
+position = Vector2(720, 296)
+C1_connector_id = 4
+C1_target_id = -1
+C2_connector_id = 5
+C2_target_id = -1

@@ -51,6 +51,7 @@ position = Vector2(0.43750954, -46.562492)
 shape = SubResource("CircleShape2D_1m15w")
 
 [node name="Label" type="Label" parent="PieceConnector1"]
+visible = false
 offset_left = -0.5
 offset_top = -50.5
 offset_right = 39.5
@@ -74,6 +75,7 @@ position = Vector2(0.43750954, 47.437508)
 shape = SubResource("CircleShape2D_1m15w")
 
 [node name="Label" type="Label" parent="PieceConnector2"]
+visible = false
 offset_left = -3.5
 offset_top = 39.5
 offset_right = 36.5
