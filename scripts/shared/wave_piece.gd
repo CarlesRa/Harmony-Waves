@@ -52,7 +52,7 @@ func _setup_audio() -> void:
 		audio_player.stream = music_stream
 		audio_player.volume_db = 0
 		audio_player.bus = "Master"
-		audio_player.finished.connect(_on_audio_finished)  # ← AÑADIR ESTO
+		audio_player.finished.connect(_on_audio_finished)
 
 func _on_audio_finished() -> void:
 	if is_piece_connected and music_stream:
@@ -109,8 +109,7 @@ func _try_snap_on_release() -> void:
 	for info in colliding_targets:
 		var target_id = info["id"]
 		var current_drag_point: Node2D = info["dragged_connector_point"]
-		
-		# Solo validar si el target está activo
+
 		if target_id == current_drag_point.get_parent().connector_id:
 			valid_connections.append(info)
 
@@ -161,11 +160,11 @@ func _on_piece_connector_1_area_exited(area: Area2D) -> void:
 # Connector 2
 func _on_piece_connector_2_area_entered(area: Area2D) -> void:
 	if area is PieceConnector and area.get_parent() != self:
-		print("🔍 Connector 2 detectó área: ", area.name, " - is_active: ", area.is_active)  # ← AÑADIR
+		print("🔍 Connector 2 detectó área: ", area.name, " - is_active: ", area.is_active)
 		if !area.is_active:
-			print("❌ Área no activa, ignorando")  # ← AÑADIR
+			print("❌ Área no activa, ignorando")
 			return
-		print("✅ Área activa, añadiendo a colliding_targets")  # ← AÑADIR
+		print("✅ Área activa, añadiendo a colliding_targets")
 		var static_connector_point = area.get_node("Connector")
 		var target_pos = static_connector_point.global_position
 		var info = {
