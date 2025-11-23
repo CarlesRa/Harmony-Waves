@@ -128,7 +128,7 @@ func _try_snap_on_release() -> void:
 	var first_connection = valid_connections[0]
 	var target_pos = first_connection["target_pos"]
 	var drag_point: Node2D = first_connection["dragged_connector_point"]
-	var dragged_pos = drag_point.get_global_transform_with_canvas().origin
+	var dragged_pos = drag_point.global_position
 	var offset = target_pos - dragged_pos
 	global_position += offset
 	
@@ -150,7 +150,7 @@ func _on_piece_connector_1_area_entered(area: Area2D) -> void:
 		if !area.is_active:
 			return
 		var static_connector_point = area.get_node("Connector")
-		var target_pos = static_connector_point.get_global_transform_with_canvas().origin
+		var target_pos = static_connector_point.global_position
 		var info = {
 			"id": area.target_connector_id,
 			"target_pos": target_pos,
@@ -175,7 +175,7 @@ func _on_piece_connector_2_area_entered(area: Area2D) -> void:
 			return
 		print("✅ Área activa, añadiendo a colliding_targets")  # ← AÑADIR
 		var static_connector_point = area.get_node("Connector")
-		var target_pos = static_connector_point.get_global_transform_with_canvas().origin
+		var target_pos = static_connector_point.global_position
 		var info = {
 			"id": area.target_connector_id,
 			"target_pos": target_pos,
