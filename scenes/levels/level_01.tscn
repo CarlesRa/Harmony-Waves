@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://6s8444ykbx3k"]
+
+[ext_resource type="PackedScene" uid="uid://bpgkikg2nlrl0" path="res://scenes/shared/wave_piece_base.tscn" id="1_m802k"]
+
+[node name="Level_01" type="Node2D"]
+
+[node name="WavePiece" parent="." instance=ExtResource("1_m802k")]
+position = Vector2(256, 216)
+C1_target_id = 3
+C2_target_id = 4
+
+[node name="WavePiece2" parent="." instance=ExtResource("1_m802k")]
+position = Vector2(576, 128)
+rotation = 1.5707964
+C1_connector_id = 3
+C2_connector_id = 0
