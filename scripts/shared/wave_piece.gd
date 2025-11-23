@@ -103,7 +103,7 @@ func _start_drag() -> void:
 	z_index = 1
 	is_dragging = true
 
-func _end_drag() -> void:
+func _end_drag() -> void:	
 	if not is_dragging: return
 	z_index = 0
 	if GameManager.current_dragged_piece == self:
@@ -120,6 +120,8 @@ func _try_snap_on_release() -> void:
 	for info in colliding_targets:
 		var target_id = info["id"]
 		var current_drag_point: Node2D = info["dragged_connector_point"]
+		
+		# Solo validar si el target está activo
 		if target_id == current_drag_point.get_parent().connector_id:
 			valid_connections.append(info)
 
@@ -170,9 +172,13 @@ func _on_piece_connector_1_area_exited(area: Area2D) -> void:
 # Connector 2
 func _on_piece_connector_2_area_entered(area: Area2D) -> void:
 	if area is PieceConnector and area.get_parent() != self:
+		print("🔍 Connector 2 detectó área: ", area.name, " - is_active: ", area.is_active)  # ← AÑADIR
+		if !area.is_active:
+			print("❌ Área no activa, ignorando")  # ← AÑADIR
+			return
+		print("✅ Área activa, añadiendo a colliding_targets")  # ← AÑADIR
 		var static_connector_point = area.get_node("Connector")
 		var target_pos = static_connector_point.get_global_transform_with_canvas().origin
-		print(target_pos)
 		var info = {
 			"id": area.target_connector_id,
 			"target_pos": target_pos,

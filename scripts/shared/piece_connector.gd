@@ -16,11 +16,12 @@ var is_active:
 	set(value):
 		_set_is_active(value)
 
-func _set_is_active(value) -> void:	
+func _set_is_active(value) -> void:
+	_is_active = value	
 	if !value:
 		connector.material = null
 		return
-	connector.material = original_material
+	connector.material = original_material	
 
 @onready var connector_point := $Connector
 
