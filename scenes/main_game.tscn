@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvopl44y2w53g"]
+[gd_scene load_steps=12 format=3 uid="uid://cvopl44y2w53g"]
 
 [ext_resource type="Script" uid="uid://cen5lq5w1moqa" path="res://scripts/main_game.gd" id="1_0rdsr"]
 [ext_resource type="StyleBox" uid="uid://sh88fli7vay3" path="res://assets/styles/neon_style.tres" id="2_72e8q"]
 [ext_resource type="Theme" uid="uid://4t1h5fcm8in2" path="res://assets/themes/main_theme.tres" id="2_d2op2"]
 [ext_resource type="Script" uid="uid://cf4yqmoyydmqe" path="res://scripts/shared/game_limit_area.gd" id="5_ipu61"]
 [ext_resource type="VideoStream" uid="uid://do8rsrpgwcukv" path="res://assets/hud/background_animated.ogv" id="5_wi4c7"]
+[ext_resource type="Script" uid="uid://g0v82rbus2cj" path="res://scripts/shared/toolbar.gd" id="5_ygxny"]
 
 [sub_resource type="Environment" id="Environment_s3esy"]
 glow_bloom = 0.8
@@ -56,11 +57,19 @@ offset_right = -96.0
 offset_bottom = 72.8
 grow_horizontal = 2
 theme_override_styles/panel = ExtResource("2_72e8q")
+script = ExtResource("5_ygxny")
 
 [node name="LevelLabel" type="Label" parent="HUD/InfoBar_Layout/Toolbar"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Level "
+
+[node name="SnapsToWinLabel" type="Label" parent="HUD/InfoBar_Layout/Toolbar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Snaps to win: "
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(962, 541)

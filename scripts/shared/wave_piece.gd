@@ -164,7 +164,7 @@ func _try_snap_on_release() -> bool:
 	
 	start_audio_synced()
 	colliding_targets.clear()
-	
+	GameManager.current_snaps += 1
 	return true
 
 func _return_to_original_position() -> void:
