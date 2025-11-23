@@ -59,24 +59,31 @@ func _on_audio_finished() -> void:
 		audio_player.play()
 
 func start_audio_synced() -> void:
-	print("🎵 start_audio_synced() - AudioManager.is_playing: ", AudioManager.is_playing)
-	
 	if not music_stream or audio_player.playing:
 		return
-	
-	# Si no hay música sonando, empezar inmediatamente
+
 	if not AudioManager.is_playing:
-		print("▶️ Iniciando AudioManager y primera pieza")
-		AudioManager.start_music()  # ← Esto debería activar is_playing = true
+		AudioManager.start_music()
 		audio_player.play()
 		return
-	
-	# Si ya hay música, esperar al siguiente loop
-	var wait_time = AudioManager.get_time_to_next_loop()
-	print("⏰ Esperando ", wait_time, " segundos al siguiente loop")
-	await get_tree().create_timer(wait_time).timeout
+
+	_wait_for_loop_start()
+
+func _wait_for_loop_start() -> void:
+	while AudioManager.get_time_to_next_loop() > 0.1:
+		await get_tree().process_frame
+
+	var last_position = AudioManager.get_loop_position()
+
+	while true:
+		await get_tree().process_frame
+		var current_position = AudioManager.get_loop_position()
+		if current_position < last_position and current_position < 0.02:
+			break
+		last_position = current_position
+
+	await get_tree().create_timer(0.10).timeout
 	audio_player.play()
-	print("▶️ Audio reproducido sincronizado!")
 
 func stop_audio() -> void:
 	audio_player.stop()
