@@ -1,9 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://bpgkikg2nlrl0"]
+[gd_scene load_steps=12 format=3 uid="uid://bpgkikg2nlrl0"]
 
 [ext_resource type="Script" uid="uid://dffc7i63458mu" path="res://scripts/shared/wave_piece.gd" id="1_cxh0a"]
 [ext_resource type="Texture2D" uid="uid://hultiqasvs3r" path="res://assets/art/square_vertical.png" id="2_7v40j"]
+[ext_resource type="AudioStream" uid="uid://b3hb2l5add6fv" path="res://assets/SFX/snap_error.mp3" id="2_wttoj"]
+[ext_resource type="AudioStream" uid="uid://bry81rw5h687e" path="res://assets/SFX/snap_success.mp3" id="3_6wbc8"]
 [ext_resource type="Script" uid="uid://dmjr68cchwfcq" path="res://scripts/shared/piece_connector.gd" id="3_wttoj"]
 [ext_resource type="Shader" uid="uid://bqjm3wygrfa3d" path="res://assets/shaders/neon_glow.gdshader" id="4_6wbc8"]
+[ext_resource type="AudioStream" uid="uid://p1twe2penm1h" path="res://assets/SFX/drag.mp3" id="4_g6dxn"]
 [ext_resource type="Texture2D" uid="uid://c056xurgjp6cu" path="res://assets/art/glowCircle.png" id="5_g6dxn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1fg0o"]
@@ -21,6 +24,9 @@ radius = 8.0
 [node name="WavePiece" type="Area2D"]
 collision_layer = 2
 script = ExtResource("1_cxh0a")
+error_sound = ExtResource("2_wttoj")
+success_sound = ExtResource("3_6wbc8")
+drag_sound = ExtResource("4_g6dxn")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 

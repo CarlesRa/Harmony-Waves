@@ -1,40 +1,76 @@
 extends Node
 
 const AUDIO_LATENCY_COMPENSATION: float = 0.072
+
 var bpm: float = 120.0
 var beat_duration: float
 var loop_duration: float = 4.0  # Beats
 var current_time: float = 0.0
 var is_playing: bool = false
 
+var sfx_players: Array[AudioStreamPlayer] = []
+const MAX_SFX_PLAYERS: int = 4
+
 func _ready() -> void:
-	_calculate_beat_duration()
+    _calculate_beat_duration()
+    _setup_sfx()
 
 func _process(delta: float) -> void:
-	if is_playing:
-		current_time += delta
+    if is_playing:
+        current_time += delta
+
+func _setup_sfx() -> void:
+    for i in range(MAX_SFX_PLAYERS):
+        var player = AudioStreamPlayer.new()
+        add_child(player)
+        player.bus = "Master"
+        sfx_players.append(player)
 
 func setup_level(level_bpm: float, level_loop_duration: float) -> void:
-	bpm = level_bpm
-	loop_duration = level_loop_duration
-	_calculate_beat_duration()
+    bpm = level_bpm
+    loop_duration = level_loop_duration
+    _calculate_beat_duration()
 
 func _calculate_beat_duration() -> void:
-	beat_duration = 60.0 / bpm
+    beat_duration = 60.0 / bpm
 
 func get_loop_position() -> float:
-	var total_loop_time = loop_duration * beat_duration
-	return fmod(current_time, total_loop_time)
+    var total_loop_time = loop_duration * beat_duration
+    return fmod(current_time, total_loop_time)
 
 func get_time_to_next_loop() -> float:
-	var loop_time = loop_duration * beat_duration
-	var current_pos = get_loop_position()
-	return loop_time - current_pos
+    var loop_time = loop_duration * beat_duration
+    var current_pos = get_loop_position()
+    return loop_time - current_pos
 
 func start_music() -> void:
-	is_playing = true
-	current_time = 0.0
+    is_playing = true
+    current_time = 0.0
 
 func reset() -> void:
-	is_playing = false
-	current_time = 0.0
+    is_playing = false
+    current_time = 0.0
+
+func play_sfx(sound: AudioStream) -> void:
+    if not sound:
+        return
+
+    for player in sfx_players:
+        if not player.playing:
+            player.stream = sound
+            player.play()
+            return
+        
+    sfx_players[0].stream = sound
+    sfx_players[0].play()
+
+func stop_sfx(sound: AudioStream) -> void:
+    if not sound:
+        return
+    for player in sfx_players:
+        if player.playing and player.stream == sound:
+            player.stop()
+
+func stop_all_sfx() -> void:
+    for player in sfx_players:
+        player.stop()

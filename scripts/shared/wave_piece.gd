@@ -4,6 +4,9 @@ class_name WavePiece
 @export var is_piece_connected: bool = false
 @export var music_stream: AudioStream = null
 @export var original_position: Vector2 = Vector2.ZERO
+@export var error_sound: AudioStream
+@export var success_sound: AudioStream
+@export var drag_sound: AudioStream
 
 @export_group("Connector 1")
 @export var C1_connector_id: int = 1
@@ -18,6 +21,7 @@ class_name WavePiece
 @onready var connector_2: PieceConnector = $%PieceConnector2
 @onready var connector_2_point: Node2D = $PieceConnector2/Connector
 @onready var audio_player: AudioStreamPlayer = AudioStreamPlayer.new()
+@onready var piece_sprite: Sprite2D = $Piece
 
 const SNAP_DISTANCE: float = 300.0
 
@@ -29,6 +33,7 @@ var drag_offset: Vector2 = Vector2.ZERO
 func _ready() -> void:
 	_set_connectors()
 	_setup_audio()
+	_setup_shader()
 	if is_piece_connected:
 		start_audio_synced()
 
@@ -54,6 +59,18 @@ func _setup_audio() -> void:
 		audio_player.bus = "Master"
 		audio_player.finished.connect(_on_audio_finished)
 
+func _setup_shader() -> void:
+	if not piece_sprite:
+		print("⚠️ No se encontró piece_sprite")
+		return
+	if not piece_sprite.material:
+		var shader_material = ShaderMaterial.new()
+		var shader = load("res://assets/shaders/waves.gdshader")
+		shader_material.shader = shader
+		piece_sprite.material = shader_material
+
+	piece_sprite.material.set_shader_parameter("is_playing", is_piece_connected)
+
 func _on_audio_finished() -> void:
 	if is_piece_connected and music_stream:
 		audio_player.play()
@@ -65,7 +82,9 @@ func start_audio_synced() -> void:
 	if not AudioManager.is_playing:
 		AudioManager.start_music()
 		audio_player.play()
-		return
+		if piece_sprite and piece_sprite.material:
+			piece_sprite.material.set_shader_parameter("is_playing", true)
+			return
 
 	var current_loop_position = AudioManager.get_loop_position()
 	var adjusted_position = current_loop_position + AudioManager.AUDIO_LATENCY_COMPENSATION
@@ -74,8 +93,11 @@ func start_audio_synced() -> void:
 		adjusted_position = fmod(adjusted_position, loop_length)
 
 	audio_player.stream_paused = false
-	audio_player.play()	
+	audio_player.play()
 	audio_player.seek(adjusted_position)
+	
+	if piece_sprite and piece_sprite.material:
+		piece_sprite.material.set_shader_parameter("is_playing", true)
 
 func stop_audio() -> void:
 	audio_player.stop()
@@ -92,17 +114,23 @@ func _start_drag() -> void:
 	original_position = global_position
 	drag_offset = get_global_mouse_position() - global_position
 	z_index = 1
+	if drag_sound:
+		AudioManager.play_sfx(drag_sound)
 	is_dragging = true
 
 func _end_drag() -> void:	
 	if not is_dragging: return
 	z_index = 0
-	_try_snap_on_release()
+	var connected: bool = _try_snap_on_release()
+	if not connected:
+		_return_to_original_position()
+	if drag_sound:
+		AudioManager.stop_sfx(drag_sound)
 	is_dragging = false
 
-func _try_snap_on_release() -> void:
+func _try_snap_on_release() -> bool:
 	if colliding_targets.is_empty():
-		return
+		return false
 		
 	var valid_connections = []
 	
@@ -114,7 +142,7 @@ func _try_snap_on_release() -> void:
 			valid_connections.append(info)
 
 	if valid_connections.is_empty():
-		return
+		return false
 
 	var first_connection = valid_connections[0]
 	var target_pos = first_connection["target_pos"]
@@ -132,8 +160,23 @@ func _try_snap_on_release() -> void:
 	is_piece_connected = true
 	connector_1.is_active = true
 	connector_2.is_active = true
+
+	if success_sound:
+		AudioManager.play_sfx(success_sound)
+	
 	start_audio_synced()
 	colliding_targets.clear()
+	
+	return true
+
+func _return_to_original_position() -> void:
+	if error_sound:
+		AudioManager.play_sfx(error_sound)
+
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_BACK)
+	tween.tween_property(self, "global_position", original_position, 0.3)
 
 # Connector 1
 func _on_piece_connector_1_area_entered(area: Area2D) -> void:	
