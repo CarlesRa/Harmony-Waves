@@ -69,19 +69,35 @@ func _end_drag() -> void:
 func _try_snap_on_release() -> void:
 	if colliding_targets.is_empty():
 		return
+		
+	var valid_connections = []
+	
 	for info in colliding_targets:
 		var target_id = info["id"]
-		var target_pos = info["target_pos"]
-		var drag_point: Node2D = info["dragged_connector_point"]
-		var dragged_pos = drag_point.get_global_transform_with_canvas().origin
-		if target_id == drag_point.get_parent().connector_id:
-			var offset = target_pos - dragged_pos
-			global_position += offset
-			is_piece_connected = true
-			drag_point.get_parent().is_active = true
-			colliding_targets.clear()
-			return
+		var current_drag_point: Node2D = info["dragged_connector_point"]
+		if target_id == current_drag_point.get_parent().connector_id:
+			valid_connections.append(info)
 
+	if valid_connections.is_empty():
+		return
+
+	var first_connection = valid_connections[0]
+	var target_pos = first_connection["target_pos"]
+	var drag_point: Node2D = first_connection["dragged_connector_point"]
+	var dragged_pos = drag_point.get_global_transform_with_canvas().origin
+	var offset = target_pos - dragged_pos
+	global_position += offset
+	
+	for connection in valid_connections:
+		var dragged_connector: PieceConnector = connection["dragged_connector_point"].get_parent()
+		var target_connector: PieceConnector = connection["target_connector"]
+		dragged_connector.is_active = true
+		target_connector.is_active = true
+
+	is_piece_connected = true
+	connector_1.is_active = true
+	connector_2.is_active = true
+	colliding_targets.clear()
 
 # Connector 1
 func _on_piece_connector_1_area_entered(area: Area2D) -> void:	
@@ -93,7 +109,8 @@ func _on_piece_connector_1_area_entered(area: Area2D) -> void:
 		var info = {
 			"id": area.target_connector_id,
 			"target_pos": target_pos,
-			"dragged_connector_point": connector_1_point
+			"dragged_connector_point": connector_1_point,
+			"target_connector": area 
 		}
 		colliding_targets.append(info)
 
@@ -113,7 +130,8 @@ func _on_piece_connector_2_area_entered(area: Area2D) -> void:
 		var info = {
 			"id": area.target_connector_id,
 			"target_pos": target_pos,
-			"dragged_connector_point": connector_2_point
+			"dragged_connector_point": connector_2_point,
+			"target_connector": area 
 		}
 		colliding_targets.append(info)
 
