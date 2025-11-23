@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvopl44y2w53g"]
+[gd_scene load_steps=6 format=3 uid="uid://cvopl44y2w53g"]
 
+[ext_resource type="Script" uid="uid://cen5lq5w1moqa" path="res://scripts/main_game.gd" id="1_0rdsr"]
 [ext_resource type="Texture2D" uid="uid://cf144ievyx2e2" path="res://assets/hud/back.png" id="1_s3esy"]
 [ext_resource type="StyleBox" uid="uid://sh88fli7vay3" path="res://assets/styles/neon_style.tres" id="2_72e8q"]
 [ext_resource type="Theme" uid="uid://4t1h5fcm8in2" path="res://assets/themes/main_theme.tres" id="2_d2op2"]
@@ -7,39 +8,39 @@
 [sub_resource type="Environment" id="Environment_s3esy"]
 glow_bloom = 0.8
 
-[node name="MainGame" type="Node"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_s3esy")
+[node name="MainGame" type="Node2D"]
+script = ExtResource("1_0rdsr")
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="HUD_Background" type="TextureRect" parent="HUD"]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="CanvasLayer" type="CanvasLayer" parent="HUD"]
+layer = -10
+
+[node name="HUD_Background" type="TextureRect" parent="HUD/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("1_s3esy")
 
 [node name="InfoBar_Layout" type="Control" parent="HUD"]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 47.0
-offset_top = 32.0
-offset_right = 1112.0
-offset_bottom = 72.0
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
 size_flags_horizontal = 4
+size_flags_vertical = 0
 theme = ExtResource("2_d2op2")
 
 [node name="Toolbar" type="PanelContainer" parent="HUD/InfoBar_Layout"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -20.0
-offset_bottom = -20.0
+offset_bottom = 32.0
 grow_horizontal = 2
-grow_vertical = 2
 theme_override_styles/panel = ExtResource("2_72e8q")
 
 [node name="LevelLabel" type="Label" parent="HUD/InfoBar_Layout/Toolbar"]
@@ -47,4 +48,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Level "
 
-[node name="LevelContainer" type="Node" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(581, 339)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_s3esy")
+
+[node name="LevelContainer" type="Node2D" parent="."]

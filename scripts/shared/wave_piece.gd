@@ -97,7 +97,6 @@ func _on_wave_piece_input_event(_viewport: Node, event: InputEvent, _shape_idx: 
 				_end_drag()
 
 func _start_drag() -> void:
-	GameManager.current_dragged_piece = self
 	original_position = global_position
 	drag_offset = get_global_mouse_position() - global_position
 	z_index = 1
@@ -106,8 +105,6 @@ func _start_drag() -> void:
 func _end_drag() -> void:	
 	if not is_dragging: return
 	z_index = 0
-	if GameManager.current_dragged_piece == self:
-		GameManager.current_dragged_piece = null
 	_try_snap_on_release()
 	is_dragging = false
 
