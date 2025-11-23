@@ -1,5 +1,6 @@
 extends Node
 
+const AUDIO_LATENCY_COMPENSATION: float = 0.072
 var bpm: float = 120.0
 var beat_duration: float
 var loop_duration: float = 4.0  # Beats

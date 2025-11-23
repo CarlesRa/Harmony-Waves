@@ -67,23 +67,15 @@ func start_audio_synced() -> void:
 		audio_player.play()
 		return
 
-	_wait_for_loop_start()
+	var current_loop_position = AudioManager.get_loop_position()
+	var adjusted_position = current_loop_position + AudioManager.AUDIO_LATENCY_COMPENSATION
+	var loop_length = audio_player.stream.get_length()
+	if adjusted_position >= loop_length:
+		adjusted_position = fmod(adjusted_position, loop_length)
 
-func _wait_for_loop_start() -> void:
-	while AudioManager.get_time_to_next_loop() > 0.1:
-		await get_tree().process_frame
-
-	var last_position = AudioManager.get_loop_position()
-
-	while true:
-		await get_tree().process_frame
-		var current_position = AudioManager.get_loop_position()
-		if current_position < last_position and current_position < 0.02:
-			break
-		last_position = current_position
-
-	await get_tree().create_timer(0.10).timeout
-	audio_player.play()
+	audio_player.stream_paused = false
+	audio_player.play()	
+	audio_player.seek(adjusted_position)
 
 func stop_audio() -> void:
 	audio_player.stop()
