@@ -61,7 +61,6 @@ func _setup_audio() -> void:
 
 func _setup_shader() -> void:
 	if not piece_sprite:
-		print("⚠️ No se encontró piece_sprite")
 		return
 	if not piece_sprite.material:
 		var shader_material = ShaderMaterial.new()
@@ -202,11 +201,8 @@ func _on_piece_connector_1_area_exited(area: Area2D) -> void:
 # Connector 2
 func _on_piece_connector_2_area_entered(area: Area2D) -> void:
 	if area is PieceConnector and area.get_parent() != self:
-		print("🔍 Connector 2 detectó área: ", area.name, " - is_active: ", area.is_active)
 		if !area.is_active:
-			print("❌ Área no activa, ignorando")
 			return
-		print("✅ Área activa, añadiendo a colliding_targets")
 		var static_connector_point = area.get_node("Connector")
 		var target_pos = static_connector_point.global_position
 		var info = {
