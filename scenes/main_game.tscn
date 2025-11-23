@@ -1,9 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://cvopl44y2w53g"]
+[gd_scene load_steps=7 format=3 uid="uid://cvopl44y2w53g"]
 
 [ext_resource type="Script" uid="uid://cen5lq5w1moqa" path="res://scripts/main_game.gd" id="1_0rdsr"]
-[ext_resource type="Texture2D" uid="uid://cf144ievyx2e2" path="res://assets/hud/back.png" id="1_s3esy"]
 [ext_resource type="StyleBox" uid="uid://sh88fli7vay3" path="res://assets/styles/neon_style.tres" id="2_72e8q"]
 [ext_resource type="Theme" uid="uid://4t1h5fcm8in2" path="res://assets/themes/main_theme.tres" id="2_d2op2"]
+[ext_resource type="VideoStream" uid="uid://do8rsrpgwcukv" path="res://assets/hud/background_animated.ogv" id="5_wi4c7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0rdsr"]
+size = Vector2(84, 1079)
 
 [sub_resource type="Environment" id="Environment_s3esy"]
 glow_bloom = 0.8
@@ -16,15 +19,13 @@ script = ExtResource("1_0rdsr")
 [node name="CanvasLayer" type="CanvasLayer" parent="HUD"]
 layer = -10
 
-[node name="HUD_Background" type="TextureRect" parent="HUD/CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("1_s3esy")
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="HUD/CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+stream = ExtResource("5_wi4c7")
+autoplay = true
+loop = true
 
 [node name="InfoBar_Layout" type="Control" parent="HUD"]
 layout_mode = 3
@@ -39,17 +40,33 @@ theme = ExtResource("2_d2op2")
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 32.0
+offset_left = 95.0
+offset_top = 9.0
+offset_right = -96.0
+offset_bottom = 72.8
 grow_horizontal = 2
 theme_override_styles/panel = ExtResource("2_72e8q")
 
 [node name="LevelLabel" type="Label" parent="HUD/InfoBar_Layout/Toolbar"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 text = "Level "
 
+[node name="GameLimits" type="RigidBody2D" parent="HUD"]
+light_mask = 7
+visibility_layer = 7
+position = Vector2(2, 1)
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HUD/GameLimits"]
+light_mask = 7
+visibility_layer = 7
+position = Vector2(42, 539.5)
+shape = SubResource("RectangleShape2D_0rdsr")
+
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(581, 339)
+position = Vector2(962, 541)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s3esy")
