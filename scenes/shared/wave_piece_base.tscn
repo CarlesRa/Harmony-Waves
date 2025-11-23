@@ -22,7 +22,6 @@ shader_parameter/glow_radius = 0.5
 radius = 8.0
 
 [node name="WavePiece" type="Area2D"]
-collision_layer = 10
 script = ExtResource("1_cxh0a")
 error_sound = ExtResource("2_wttoj")
 success_sound = ExtResource("3_6wbc8")
