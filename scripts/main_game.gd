@@ -8,8 +8,8 @@ func _ready() -> void:
 	GameManager.set_level_container(level_container)
 	GameManager.load_level("res://scenes/levels/level_02.tscn", "Level 2")
 	
-	await get_tree().process_frame
-	_adjust_camera_to_fit_level()
+	#await get_tree().process_frame
+	#_adjust_camera_to_fit_level()
 
 func _adjust_camera_to_fit_level() -> void:
 	if level_container.get_child_count() == 0:

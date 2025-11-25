@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cvopl44y2w53g"]
+[gd_scene load_steps=11 format=3 uid="uid://cvopl44y2w53g"]
 
 [ext_resource type="Script" uid="uid://cen5lq5w1moqa" path="res://scripts/main_game.gd" id="1_0rdsr"]
 [ext_resource type="StyleBox" uid="uid://sh88fli7vay3" path="res://assets/styles/neon_style.tres" id="2_72e8q"]
@@ -11,16 +11,13 @@
 glow_bloom = 0.8
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0rdsr"]
-size = Vector2(73, 1078)
+size = Vector2(114, 1078)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ipu61"]
-size = Vector2(804, 1102)
+size = Vector2(86, 1102)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ygxny"]
 size = Vector2(1947, 96)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wi4c7"]
-size = Vector2(1919, 556)
 
 [node name="MainGame" type="Node2D"]
 script = ExtResource("1_0rdsr")
@@ -31,8 +28,8 @@ script = ExtResource("1_0rdsr")
 layer = -10
 
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="HUD/CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1920.0
+offset_bottom = 1080.0
 mouse_filter = 2
 stream = ExtResource("5_wi4c7")
 autoplay = true
@@ -72,7 +69,7 @@ size_flags_horizontal = 4
 text = "Snaps to win: "
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(962, 541)
+position = Vector2(960, 540)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_s3esy")
@@ -85,21 +82,21 @@ collision_mask = 7
 script = ExtResource("5_ipu61")
 
 [node name="LeftCollisionLeft" type="CollisionShape2D" parent="GameLimitsLeft"]
-position = Vector2(26.5, 542)
+position = Vector2(47, 542)
 shape = SubResource("RectangleShape2D_0rdsr")
 
 [node name="GameLimitsRight" type="Area2D" parent="."]
-position = Vector2(1670, 0)
+position = Vector2(1652, 3)
 collision_layer = 7
 collision_mask = 7
 script = ExtResource("5_ipu61")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameLimitsRight"]
-position = Vector2(-137, 541)
+position = Vector2(222, 541)
 shape = SubResource("RectangleShape2D_ipu61")
 
 [node name="GameLimitsTop" type="Area2D" parent="."]
-position = Vector2(1670, 0)
+position = Vector2(1658, -3)
 collision_layer = 7
 collision_mask = 7
 script = ExtResource("5_ipu61")
@@ -109,14 +106,14 @@ position = Vector2(-707.5, 38)
 shape = SubResource("RectangleShape2D_ygxny")
 
 [node name="GameLimitsBottom" type="Area2D" parent="."]
-position = Vector2(1670, 0)
+position = Vector2(1672, 996)
 collision_layer = 7
 collision_mask = 7
 script = ExtResource("5_ipu61")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameLimitsBottom"]
-position = Vector2(-709.5, 802)
-shape = SubResource("RectangleShape2D_wi4c7")
+position = Vector2(-707.5, 38)
+shape = SubResource("RectangleShape2D_ygxny")
 
 [connection signal="area_shape_entered" from="GameLimitsLeft" to="GameLimitsLeft" method="_on_area_shape_entered"]
 [connection signal="area_shape_entered" from="GameLimitsRight" to="GameLimitsRight" method="_on_area_shape_entered"]

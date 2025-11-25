@@ -11,7 +11,6 @@
 script = ExtResource("1_qdh5e")
 
 [node name="WavePiece" parent="." instance=ExtResource("1_m802k")]
-position = Vector2(695, 283)
 is_piece_connected = true
 music_stream = ExtResource("3_50wog")
 C1_connector_id = -1

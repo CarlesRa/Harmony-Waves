@@ -13,7 +13,7 @@
 script = ExtResource("1_vq1pa")
 
 [node name="WavePiece" parent="." instance=ExtResource("1_f5vym")]
-position = Vector2(476.00006, 334.00003)
+position = Vector2(738, 386.99994)
 rotation = 0.7853982
 is_piece_connected = true
 music_stream = ExtResource("3_ppbiy")
@@ -31,8 +31,8 @@ C1_target_id = 3
 C2_connector_id = 1
 C2_target_id = -10
 
-[node name="WavePiece3" parent="." instance=ExtResource("1_f5vym")]
-position = Vector2(382.00003, 584)
+[node name="s" parent="." instance=ExtResource("1_f5vym")]
+position = Vector2(279, 859)
 rotation = -0.7853982
 music_stream = ExtResource("5_yklhy")
 C1_connector_id = 3
@@ -41,7 +41,7 @@ C2_connector_id = 4
 C2_target_id = 5
 
 [node name="WavePiece4" parent="." instance=ExtResource("1_f5vym")]
-position = Vector2(334.00003, 373.00003)
+position = Vector2(1205.0001, 264.00006)
 rotation = -0.7853982
 music_stream = ExtResource("6_o4ql5")
 C1_connector_id = 2
@@ -50,7 +50,7 @@ C2_connector_id = 6
 C2_target_id = 8
 
 [node name="WavePiece5" parent="." instance=ExtResource("1_f5vym")]
-position = Vector2(712, 480)
+position = Vector2(1312, 755)
 rotation = 0.7853982
 music_stream = ExtResource("7_4hx2o")
 C1_connector_id = 5
@@ -59,7 +59,7 @@ C2_connector_id = 6
 C2_target_id = 7
 
 [node name="WavePiece6" parent="." instance=ExtResource("1_f5vym")]
-position = Vector2(407, 246)
+position = Vector2(321, 229)
 rotation = 1.5707964
 music_stream = ExtResource("8_km0xc")
 C1_connector_id = 7
@@ -68,14 +68,14 @@ C2_connector_id = 8
 C2_target_id = 9
 
 [node name="fake" parent="." instance=ExtResource("1_f5vym")]
-position = Vector2(488, 574)
+position = Vector2(1721.9999, 773.00006)
 C1_connector_id = -50
 C1_target_id = -50
 C2_connector_id = -50
 C2_target_id = -50
 
 [node name="fake2" parent="." instance=ExtResource("1_f5vym")]
-position = Vector2(703, 368)
+position = Vector2(1691, 229.00009)
 rotation = -0.7853982
 C1_connector_id = -50
 C1_target_id = -50
@@ -83,7 +83,7 @@ C2_connector_id = -50
 C2_target_id = -50
 
 [node name="fake3" parent="." instance=ExtResource("1_f5vym")]
-position = Vector2(663, 601)
+position = Vector2(655.00006, 841.00006)
 rotation = -0.7853982
 C1_connector_id = -50
 C1_target_id = -50
@@ -91,7 +91,7 @@ C2_connector_id = -50
 C2_target_id = -50
 
 [node name="fake4" parent="." instance=ExtResource("1_f5vym")]
-position = Vector2(684, 244.00003)
+position = Vector2(1507, 411)
 rotation = 0.7853982
 C1_connector_id = -50
 C1_target_id = -50
