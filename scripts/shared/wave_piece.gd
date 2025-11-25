@@ -80,23 +80,27 @@ func start_audio_synced() -> void:
 
 	if not AudioManager.is_playing:
 		AudioManager.start_music()
+		audio_player.stream = music_stream
 		audio_player.play()
+		
 		if piece_sprite and piece_sprite.material:
 			piece_sprite.material.set_shader_parameter("is_playing", true)
-			return
+		return
 
-	var current_loop_position = AudioManager.get_loop_position()
-	var adjusted_position = current_loop_position + AudioManager.AUDIO_LATENCY_COMPENSATION
-	var loop_length = audio_player.stream.get_length()
-	if adjusted_position >= loop_length:
-		adjusted_position = fmod(adjusted_position, loop_length)
-
-	audio_player.stream_paused = false
-	audio_player.play()
-	audio_player.seek(adjusted_position)
+	var loop_position = AudioManager.get_loop_position()
+	var loop_length = music_stream.get_length()
+	var sync_position = fmod(loop_position, loop_length)
+	
+	audio_player.stream = music_stream
+	audio_player.play(sync_position)
 	
 	if piece_sprite and piece_sprite.material:
 		piece_sprite.material.set_shader_parameter("is_playing", true)
+
+func debug_sync() -> void:
+	print("Loop position: ", AudioManager.get_loop_position())
+	print("Audio player position: ", audio_player.get_playback_position())
+	print("Difference: ", abs(AudioManager.get_loop_position() - audio_player.get_playback_position()))
 
 func stop_audio() -> void:
 	audio_player.stop()
@@ -127,6 +131,7 @@ func _end_drag() -> void:
 
 func _try_snap_on_release() -> bool:
 	if colliding_targets.is_empty():
+		return_to_original_position()
 		return false
 		
 	var valid_connections = []
@@ -139,7 +144,7 @@ func _try_snap_on_release() -> bool:
 			valid_connections.append(info)
 
 	if valid_connections.is_empty():
-		_return_to_original_position()
+		return_to_original_position()
 		return false
 
 	var first_connection = valid_connections[0]
@@ -167,7 +172,7 @@ func _try_snap_on_release() -> bool:
 	GameManager.current_snaps += 1
 	return true
 
-func _return_to_original_position() -> void:
+func return_to_original_position() -> void:
 	if error_sound:
 		AudioManager.play_sfx(error_sound)
 

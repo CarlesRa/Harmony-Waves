@@ -7,3 +7,4 @@ func _on_area_shape_entered(_area_rid: RID, area: Area2D, _area_shape_index: int
 		var piece: WavePiece = area
 		if piece.is_dragging:
 			piece.is_dragging = false
+			piece.return_to_original_position()
