@@ -14,7 +14,7 @@ var sfx_players: Array[AudioStreamPlayer] = []
 const MAX_SFX_PLAYERS: int = 4
 
 func _ready() -> void:
-	_calculate_beat_duration()
+	#_calculate_beat_duration()
 	_setup_master_clock()
 	_setup_sfx()
 

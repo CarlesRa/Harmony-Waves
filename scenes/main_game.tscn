@@ -11,13 +11,13 @@
 glow_bloom = 0.8
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0rdsr"]
-size = Vector2(275, 1078)
+size = Vector2(73, 1078)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ipu61"]
 size = Vector2(804, 1102)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ygxny"]
-size = Vector2(1947, 84)
+size = Vector2(1947, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wi4c7"]
 size = Vector2(1919, 556)
@@ -85,7 +85,7 @@ collision_mask = 7
 script = ExtResource("5_ipu61")
 
 [node name="LeftCollisionLeft" type="CollisionShape2D" parent="GameLimitsLeft"]
-position = Vector2(127.5, 542)
+position = Vector2(26.5, 542)
 shape = SubResource("RectangleShape2D_0rdsr")
 
 [node name="GameLimitsRight" type="Area2D" parent="."]
@@ -105,7 +105,7 @@ collision_mask = 7
 script = ExtResource("5_ipu61")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameLimitsTop"]
-position = Vector2(-707.5, 32)
+position = Vector2(-707.5, 38)
 shape = SubResource("RectangleShape2D_ygxny")
 
 [node name="GameLimitsBottom" type="Area2D" parent="."]
