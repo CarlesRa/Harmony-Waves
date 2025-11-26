@@ -8,21 +8,18 @@ func _ready() -> void:
 	_update_button()
 
 func _setup_theme() -> void:
-	# Crear StyleBox sin borde para todos los estados
 	var style_normal = StyleBoxFlat.new()
-	style_normal.bg_color = Color(0, 0, 0, 0)  # Transparente
+	style_normal.bg_color = Color(0, 0, 0, 0)
 	style_normal.border_width_left = 0
 	style_normal.border_width_top = 0
 	style_normal.border_width_right = 0
 	style_normal.border_width_bottom = 0
 	
-	# Aplicar el mismo estilo a todos los estados
 	add_theme_stylebox_override("normal", style_normal)
 	add_theme_stylebox_override("hover", style_normal)
 	add_theme_stylebox_override("pressed", style_normal)
 	add_theme_stylebox_override("focus", StyleBoxEmpty.new())
 	
-	# Sin cambio de cursor
 	mouse_default_cursor_shape = Control.CURSOR_ARROW
 
 func _on_pressed() -> void:
@@ -35,12 +32,11 @@ func _update_button() -> void:
 	
 	if is_muted:
 		text = "♪ MUTE"
-		color = Color("#FF0066")  # Rojo
+		color = Color("#FF0066")
 	else:
 		text = "♪ MUTE"
-		color = Color("#00FF88")  # Verde
-	
-	# Aplicar el MISMO color a TODOS los estados
+		color = Color("#00FF88")
+
 	add_theme_color_override("font_color", color)
 	add_theme_color_override("font_hover_color", color)
 	add_theme_color_override("font_pressed_color", color)

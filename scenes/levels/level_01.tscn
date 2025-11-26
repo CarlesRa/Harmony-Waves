@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://bpgkikg2nlrl0" path="res://scenes/shared/wave_piece_base.tscn" id="1_m802k"]
 [ext_resource type="Script" uid="uid://daqf7o0ti5gby" path="res://scripts/levels/level_01.gd" id="1_qdh5e"]
-[ext_resource type="AudioStream" uid="uid://cr6ctpjovirum" path="res://assets/music/level_01/1.wav" id="3_50wog"]
+[ext_resource type="AudioStream" uid="uid://cr6ctpjovirum" path="res://assets/music/level_01/4.wav" id="3_50wog"]
 [ext_resource type="AudioStream" uid="uid://byjey3t1tfyef" path="res://assets/music/level_01/2.wav" id="4_1ey3t"]
 [ext_resource type="AudioStream" uid="uid://dqgpgs2g2o5hb" path="res://assets/music/level_01/3.wav" id="5_t0hvh"]
-[ext_resource type="AudioStream" uid="uid://il5bn0aujda2" path="res://assets/music/level_01/4.wav" id="6_kfebt"]
+[ext_resource type="AudioStream" uid="uid://il5bn0aujda2" path="res://assets/music/level_01/1.wav" id="6_kfebt"]
 
 [node name="Level_01" type="Node2D"]
 script = ExtResource("1_qdh5e")
@@ -13,7 +13,7 @@ script = ExtResource("1_qdh5e")
 [node name="WavePiece" parent="." instance=ExtResource("1_m802k")]
 position = Vector2(873.00006, 436)
 is_piece_connected = true
-music_stream = ExtResource("3_50wog")
+music_stream = ExtResource("6_kfebt")
 C1_connector_id = -1
 C1_target_id = 1
 C2_connector_id = -1
@@ -38,7 +38,7 @@ C2_target_id = 4
 
 [node name="WavePiece4" parent="." instance=ExtResource("1_m802k")]
 position = Vector2(253.00003, 613)
-music_stream = ExtResource("6_kfebt")
+music_stream = ExtResource("3_50wog")
 C1_connector_id = 4
 C1_target_id = -1
 C2_connector_id = 5

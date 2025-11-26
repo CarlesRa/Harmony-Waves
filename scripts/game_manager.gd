@@ -16,6 +16,7 @@ var snaps_to_win:
 	set(value):
 		_snaps_to_win = value
 		emit_signal('snaps_to_win_sign', value)
+
 var current_snaps:
 	get:
 		return _current_snaps

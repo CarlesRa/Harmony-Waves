@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://bpgkikg2nlrl0" path="res://scenes/shared/wave_piece_base.tscn" id="1_f5vym"]
 [ext_resource type="Script" uid="uid://g70nx4lxm76e" path="res://scripts/levels/level_02.gd" id="1_vq1pa"]
-[ext_resource type="AudioStream" uid="uid://dvy1re3r7ti3y" path="res://assets/music/level_02/level02_01.mp3" id="3_ppbiy"]
-[ext_resource type="AudioStream" uid="uid://c8synwfi75j57" path="res://assets/music/level_02/level02_02.mp3" id="4_c6rld"]
-[ext_resource type="AudioStream" uid="uid://cnppgfplqtqb7" path="res://assets/music/level_02/level02_03.mp3" id="5_yklhy"]
-[ext_resource type="AudioStream" uid="uid://bbfr4wapxdfxk" path="res://assets/music/level_02/level02_04.mp3" id="6_o4ql5"]
-[ext_resource type="AudioStream" uid="uid://b76qr667gaxc1" path="res://assets/music/level_02/level02_05.mp3" id="7_4hx2o"]
-[ext_resource type="AudioStream" uid="uid://dwxsctbuq2wni" path="res://assets/music/level_02/level02_06.mp3" id="8_km0xc"]
+[ext_resource type="AudioStream" uid="uid://bxi34xajg34jt" path="res://assets/music/level_02/1.wav" id="3_ppbiy"]
+[ext_resource type="AudioStream" uid="uid://bsycks0e7r1eu" path="res://assets/music/level_02/2.wav" id="4_c6rld"]
+[ext_resource type="AudioStream" uid="uid://cu6tcy3634foe" path="res://assets/music/level_02/3.wav" id="5_yklhy"]
+[ext_resource type="AudioStream" uid="uid://dxbpto3xmp5ow" path="res://assets/music/level_02/4.wav" id="6_o4ql5"]
+[ext_resource type="AudioStream" uid="uid://de65heu80tkws" path="res://assets/music/level_02/5.wav" id="7_4hx2o"]
+[ext_resource type="AudioStream" uid="uid://h7fbyp4hewtu" path="res://assets/music/level_02/6.wav" id="8_km0xc"]
 
 [node name="Level02" type="Node2D"]
 script = ExtResource("1_vq1pa")
@@ -31,7 +31,7 @@ C1_target_id = 3
 C2_connector_id = 1
 C2_target_id = -10
 
-[node name="s" parent="." instance=ExtResource("1_f5vym")]
+[node name="WavePiece3" parent="." instance=ExtResource("1_f5vym")]
 position = Vector2(279, 859)
 rotation = -0.7853982
 music_stream = ExtResource("5_yklhy")

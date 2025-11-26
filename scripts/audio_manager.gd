@@ -3,11 +3,10 @@ extends Node
 var bpm: float = 120.0
 var beat_duration: float
 var loop_duration: float = 4.0  # Beats per loop
-
+var total_loop_time: float = 0.0
 var master_clock: AudioStreamPlayer
-var reference_start_time: float = 0.0
+var music_start_time: float = 0.0
 var is_playing: bool = false
-
 var sfx_players: Array[AudioStreamPlayer] = []
 const MAX_SFX_PLAYERS: int = 4
 
@@ -32,43 +31,31 @@ func setup_level(level_bpm: float, level_loop_duration: float) -> void:
 	bpm = level_bpm
 	loop_duration = level_loop_duration
 	_calculate_beat_duration()
-	var loop_time = loop_duration * beat_duration
-	print("Loop configured: %d BPM, %d beats = %.2f seconds" % [bpm, loop_duration, loop_time])	
+	total_loop_time = loop_duration * beat_duration
+	print("Loop configured: %d BPM, %d beats = %.2f seconds" % [bpm, loop_duration, total_loop_time])	
 
 func _calculate_beat_duration() -> void:
 	beat_duration = 60.0 / bpm
 
 func get_loop_position() -> float:
-	if not is_playing or not master_clock.playing:
-		return 0.0
-
-	var playback_pos = master_clock.get_playback_position()
-	var total_time = playback_pos + AudioServer.get_time_since_last_mix()
-	# Compensate Audio latency
-	total_time -= AudioServer.get_output_latency()
-	
-	var total_loop_time = loop_duration * beat_duration
-	return fmod(total_time, total_loop_time)
-
-func get_precise_loop_position() -> float:
-	"""Versión más precisa usando el bus de audio"""
 	if not is_playing:
 		return 0.0
-	
-	var time = AudioServer.get_time_to_next_mix() + AudioServer.get_time_since_last_mix()
-	var elapsed = reference_start_time + time
-	var total_loop_time = loop_duration * beat_duration
-	
-	return fmod(elapsed, total_loop_time)
+
+	var current_time = master_clock.get_playback_position()
+	current_time += AudioServer.get_time_since_last_mix()
+
+	return fmod(current_time, total_loop_time)
 
 func get_time_to_next_loop() -> float:
-	var loop_time = loop_duration * beat_duration
 	var current_pos = get_loop_position()
-	return loop_time - current_pos
+	return total_loop_time - current_pos
 
 func start_music() -> void:
+	if is_playing:
+		return
+
 	is_playing = true
-	reference_start_time = 0.0
+	music_start_time = Time.get_ticks_msec() / 1000.0
 
 	if master_clock.stream == null:
 		var silence = AudioStreamGenerator.new()
@@ -76,10 +63,11 @@ func start_music() -> void:
 		master_clock.stream = silence
 	
 	master_clock.play()
+	print("Music started at %.3f seconds" % music_start_time)
 
 func reset() -> void:
 	is_playing = false
-	reference_start_time = 0.0
+	music_start_time = 0.0
 	if master_clock:
 		master_clock.stop()
 
