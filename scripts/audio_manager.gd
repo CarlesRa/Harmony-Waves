@@ -1,10 +1,8 @@
 extends Node
 
-const AUDIO_LATENCY_COMPENSATION: float = 0.05
-
 var bpm: float = 120.0
 var beat_duration: float
-var loop_duration: float = 4.0  # Beats en el loop
+var loop_duration: float = 4.0  # Beats per loop
 
 var master_clock: AudioStreamPlayer
 var reference_start_time: float = 0.0
@@ -14,7 +12,6 @@ var sfx_players: Array[AudioStreamPlayer] = []
 const MAX_SFX_PLAYERS: int = 4
 
 func _ready() -> void:
-	#_calculate_beat_duration()
 	_setup_master_clock()
 	_setup_sfx()
 
@@ -35,6 +32,8 @@ func setup_level(level_bpm: float, level_loop_duration: float) -> void:
 	bpm = level_bpm
 	loop_duration = level_loop_duration
 	_calculate_beat_duration()
+	var loop_time = loop_duration * beat_duration
+	print("Loop configured: %d BPM, %d beats = %.2f seconds" % [bpm, loop_duration, loop_time])	
 
 func _calculate_beat_duration() -> void:
 	beat_duration = 60.0 / bpm

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvopl44y2w53g"]
+[gd_scene load_steps=14 format=3 uid="uid://cvopl44y2w53g"]
 
 [ext_resource type="Script" uid="uid://cen5lq5w1moqa" path="res://scripts/main_game.gd" id="1_0rdsr"]
 [ext_resource type="StyleBox" uid="uid://sh88fli7vay3" path="res://assets/styles/neon_style.tres" id="2_72e8q"]
@@ -6,6 +6,23 @@
 [ext_resource type="Script" uid="uid://cf4yqmoyydmqe" path="res://scripts/shared/game_limit_area.gd" id="5_ipu61"]
 [ext_resource type="VideoStream" uid="uid://do8rsrpgwcukv" path="res://assets/hud/background_animated.ogv" id="5_wi4c7"]
 [ext_resource type="Script" uid="uid://g0v82rbus2cj" path="res://scripts/shared/toolbar.gd" id="5_ygxny"]
+[ext_resource type="Script" uid="uid://spe3fe5impei" path="res://scripts/shared/mute_button.gd" id="6_wi4c7"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wi4c7"]
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_70vka"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0, 0, 0, 1)
+draw_center = false
+border_color = Color(0, 0, 0, 1)
+corner_detail = 1
+shadow_color = Color(0, 0, 0, 1)
+anti_aliasing = false
 
 [sub_resource type="Environment" id="Environment_s3esy"]
 glow_bloom = 0.8
@@ -67,6 +84,15 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Snaps to win: "
+
+[node name="MuteButton" type="Button" parent="HUD/InfoBar_Layout/Toolbar"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_wi4c7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_70vka")
+text = "MUTE  ♪"
+flat = true
+script = ExtResource("6_wi4c7")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 540)
