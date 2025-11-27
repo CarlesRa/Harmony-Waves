@@ -34,6 +34,7 @@ func _ready() -> void:
 	_set_connectors()
 	_setup_audio()
 	_setup_shader()
+	GameManager.level_completed.connect(_on_level_completed)
 	if is_piece_connected:
 		start_audio_synced()
 
@@ -230,3 +231,22 @@ func _on_piece_connector_2_area_exited(area: Area2D) -> void:
 		colliding_targets = colliding_targets.filter(
 			func(e): return e["id"] != area.target_connector_id
 		)
+
+func _on_level_completed():
+	if not is_piece_connected:
+		_fade_and_destroy()
+
+func _fade_and_destroy():
+	var tween = create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(self, "modulate:a", 0.0, 1)
+	tween.tween_property(self, "scale", Vector2(0.8, 0.8), 1)
+	await tween.finished
+	queue_free()
+
+func destroy():
+	stop_audio()
+	if audio_player:
+		audio_player.stop()
+		audio_player.queue_free()
+	queue_free()

@@ -25,4 +25,3 @@ func _update_snaps_to_win_label(value: int) -> void:
 func _update_current_snaps_label(value: int) -> void:
 	current_snaps = value
 	snapsLabel.text = "Snaps to Win: %s of %s" % [current_snaps, snaps_to_win]
-	
