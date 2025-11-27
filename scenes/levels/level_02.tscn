@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://bsycks0e7r1eu" path="res://assets/music/level_02/2.wav" id="4_c6rld"]
 [ext_resource type="AudioStream" uid="uid://cu6tcy3634foe" path="res://assets/music/level_02/3.wav" id="5_yklhy"]
 [ext_resource type="AudioStream" uid="uid://dxbpto3xmp5ow" path="res://assets/music/level_02/4.wav" id="6_o4ql5"]
-[ext_resource type="AudioStream" uid="uid://de65heu80tkws" path="res://assets/music/level_02/5.wav" id="7_4hx2o"]
+[ext_resource type="AudioStream" uid="uid://b666bqnwyccg" path="res://assets/music/level_02/5.wav" id="7_4hx2o"]
 [ext_resource type="AudioStream" uid="uid://h7fbyp4hewtu" path="res://assets/music/level_02/6.wav" id="8_km0xc"]
 
 [node name="Level_02" type="Node2D"]

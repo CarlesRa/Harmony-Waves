@@ -90,14 +90,20 @@ func start_audio_synced() -> void:
 
 	var loop_position = AudioManager.get_loop_position()
 	var sync_position = fmod(loop_position, AudioManager.total_loop_time)
-
+	
+	sync_position += AudioManager.output_latency
+	
+	if sync_position >= AudioManager.total_loop_time:
+		sync_position = fmod(sync_position, AudioManager.total_loop_time)
+	
 	audio_player.stream = music_stream
 	audio_player.play(sync_position)
 	
 	if piece_sprite and piece_sprite.material:
 		piece_sprite.material.set_shader_parameter("is_playing", true)
 	
-	print("Syncing piece - Loop pos: %.3f, Sync pos: %.3f" % [loop_position, sync_position])
+	print("Syncing piece - Loop pos: %.3f, Sync pos: %.3f, Latency: %.3f" % 
+		[loop_position, sync_position, AudioManager.output_latency])
 
 func debug_sync() -> void:
 	var loop_pos = AudioManager.get_loop_position()

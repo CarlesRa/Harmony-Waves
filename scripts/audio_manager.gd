@@ -2,7 +2,7 @@ extends Node
 
 var bpm: float = 120.0
 var beat_duration: float
-var loop_duration: float = 4.0  # Beats per loop
+var loop_duration: float = 4.0
 var total_loop_time: float = 0.0
 var master_clock: AudioStreamPlayer
 var music_start_time: float = 0.0
@@ -10,9 +10,14 @@ var is_playing: bool = false
 var sfx_players: Array[AudioStreamPlayer] = []
 const MAX_SFX_PLAYERS: int = 4
 
+var output_latency: float = 0.0
+
 func _ready() -> void:
 	_setup_master_clock()
 	_setup_sfx()
+
+	output_latency = AudioServer.get_output_latency()
+	print("Audio output latency: %.3f seconds" % output_latency)
 
 func _setup_master_clock() -> void:
 	master_clock = AudioStreamPlayer.new()
@@ -40,10 +45,16 @@ func _calculate_beat_duration() -> void:
 func get_loop_position() -> float:
 	if not is_playing:
 		return 0.0
-
+	
 	var current_time = master_clock.get_playback_position()
-	current_time += AudioServer.get_time_since_last_mix()
 
+	current_time += AudioServer.get_time_since_last_mix()
+	current_time -= output_latency
+	
+
+	if current_time < 0:
+		current_time = 0
+	
 	return fmod(current_time, total_loop_time)
 
 func get_time_to_next_loop() -> float:
@@ -53,10 +64,10 @@ func get_time_to_next_loop() -> float:
 func start_music() -> void:
 	if is_playing:
 		return
-
+	
 	is_playing = true
 	music_start_time = Time.get_ticks_msec() / 1000.0
-
+	
 	if master_clock.stream == null:
 		var silence = AudioStreamGenerator.new()
 		silence.mix_rate = 44100
