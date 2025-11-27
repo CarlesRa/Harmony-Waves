@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c056xurgjp6cu" path="res://assets/art/glowCircle.png" id="5_g6dxn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1fg0o"]
-size = Vector2(15, 97)
+size = Vector2(35, 227)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1fg0o"]
 shader = ExtResource("4_6wbc8")
@@ -19,11 +19,9 @@ shader_parameter/pulse_intensity = 1.0
 shader_parameter/glow_radius = 0.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1m15w"]
-radius = 8.0
+radius = 18.567646
 
 [node name="WavePiece" type="Area2D"]
-position = Vector2(360, 169)
-scale = Vector2(2.5, 2.5)
 script = ExtResource("1_cxh0a")
 error_sound = ExtResource("2_wttoj")
 success_sound = ExtResource("3_6wbc8")
@@ -33,27 +31,27 @@ drag_sound = ExtResource("4_g6dxn")
 
 [node name="Piece" type="Sprite2D" parent="."]
 position = Vector2(0.37500954, 0.62498474)
-scale = Vector2(0.4236113, 0.42361134)
 texture = ExtResource("2_7v40j")
 
 [node name="Wave2DCollision" type="CollisionShape2D" parent="."]
-position = Vector2(0.50000954, 0.5000076)
+position = Vector2(0.5000005, 0.5000038)
 shape = SubResource("RectangleShape2D_1fg0o")
 
 [node name="PieceConnector1" type="Area2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(0, -76)
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("3_wttoj")
 
 [node name="Connector" type="Sprite2D" parent="PieceConnector1"]
 material = SubResource("ShaderMaterial_1fg0o")
-position = Vector2(0.43750954, -46.562492)
-scale = Vector2(0.016583346, 0.016583346)
+position = Vector2(0.5, -41.5)
+scale = Vector2(0.038, 0.038)
 texture = ExtResource("5_g6dxn")
 
 [node name="ConnectorCollision" type="CollisionShape2D" parent="PieceConnector1"]
-position = Vector2(0.43750954, -46.562492)
+position = Vector2(0, -38)
 shape = SubResource("CircleShape2D_1m15w")
 
 [node name="Label" type="Label" parent="PieceConnector1"]
@@ -71,12 +69,12 @@ script = ExtResource("3_wttoj")
 
 [node name="Connector" type="Sprite2D" parent="PieceConnector2"]
 material = SubResource("ShaderMaterial_1fg0o")
-position = Vector2(0.43750954, 47.437508)
-scale = Vector2(0.016583346, 0.016583346)
+position = Vector2(0.5, 114.5)
+scale = Vector2(0.038, 0.038)
 texture = ExtResource("5_g6dxn")
 
 [node name="ConnectorCollision" type="CollisionShape2D" parent="PieceConnector2"]
-position = Vector2(0.43750954, 47.437508)
+position = Vector2(0, 115)
 shape = SubResource("CircleShape2D_1m15w")
 
 [node name="Label" type="Label" parent="PieceConnector2"]

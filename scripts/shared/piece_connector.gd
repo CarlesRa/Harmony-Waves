@@ -25,7 +25,7 @@ func _set_is_active(value) -> void:
 
 @onready var connector_point := $Connector
 
-func _ready() -> void:	
+func _ready() -> void:
 	snap_position = connector_point.global_position
 	original_material = connector.material
 
