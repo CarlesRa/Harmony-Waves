@@ -1,0 +1,144 @@
+[gd_scene load_steps=13 format=3 uid="uid://br7s2v2cid27c"]
+
+[ext_resource type="Script" uid="uid://cynfwgjgp3862" path="res://scripts/levels/level_04.gd" id="1_76vq8"]
+[ext_resource type="PackedScene" uid="uid://bpgkikg2nlrl0" path="res://scenes/shared/wave_piece_base.tscn" id="1_up1bk"]
+[ext_resource type="AudioStream" uid="uid://bfh40qsax30x8" path="res://assets/music/level_04/1.wav" id="2_07dqf"]
+[ext_resource type="AudioStream" uid="uid://c4rrvie6v3lhm" path="res://assets/music/level_04/2.wav" id="3_76vq8"]
+[ext_resource type="AudioStream" uid="uid://d0hdnkkxfqobh" path="res://assets/music/level_04/3.wav" id="4_tdc43"]
+[ext_resource type="AudioStream" uid="uid://dqnxieaih6fb0" path="res://assets/music/level_04/4.wav" id="5_03g8n"]
+[ext_resource type="AudioStream" uid="uid://dxv5slkngdjht" path="res://assets/music/level_04/5.wav" id="6_d1lip"]
+[ext_resource type="AudioStream" uid="uid://b7bct16cputip" path="res://assets/music/level_04/6.wav" id="7_o3rdr"]
+[ext_resource type="AudioStream" uid="uid://du7up03jtq6f1" path="res://assets/music/level_04/7.wav" id="8_lr2mp"]
+[ext_resource type="AudioStream" uid="uid://ptuawigf8diy" path="res://assets/music/level_04/8.wav" id="9_vmerw"]
+[ext_resource type="AudioStream" uid="uid://cv0dgm13fhxqu" path="res://assets/music/level_04/9.wav" id="10_x1re1"]
+[ext_resource type="AudioStream" uid="uid://m2n01fxrl4x0" path="res://assets/music/level_04/10.wav" id="11_sibhc"]
+
+[node name="Level04" type="Node2D"]
+script = ExtResource("1_76vq8")
+
+[node name="WavePiece" parent="." instance=ExtResource("1_up1bk")]
+position = Vector2(732, 337.00006)
+rotation = 0.7853982
+is_piece_connected = true
+music_stream = ExtResource("2_07dqf")
+C1_connector_id = -10
+C1_target_id = -10
+C2_connector_id = -10
+C2_target_id = 1
+
+[node name="WavePiece2" parent="." instance=ExtResource("1_up1bk")]
+position = Vector2(1353, 810)
+music_stream = ExtResource("3_76vq8")
+piece_id = 1
+C1_target_id = -20
+C2_connector_id = -20
+C2_target_id = 2
+
+[node name="WavePiece3" parent="." instance=ExtResource("1_up1bk")]
+position = Vector2(1545, 799.00006)
+rotation = -0.7853982
+music_stream = ExtResource("4_tdc43")
+piece_id = 2
+C1_connector_id = 2
+C1_target_id = -30
+C2_connector_id = -30
+C2_target_id = 3
+
+[node name="WavePiece4" parent="." instance=ExtResource("1_up1bk")]
+position = Vector2(1156, 207)
+rotation = -1.5707964
+music_stream = ExtResource("5_03g8n")
+piece_id = 3
+C1_connector_id = 3
+C1_target_id = -40
+C2_connector_id = -40
+C2_target_id = 4
+
+[node name="WavePiece5" parent="." instance=ExtResource("1_up1bk")]
+position = Vector2(239.00012, 737.0001)
+rotation = 0.7853982
+scale = Vector2(0.99999994, 0.99999994)
+music_stream = ExtResource("7_o3rdr")
+piece_id = 5
+C1_connector_id = -50
+C1_target_id = 5
+C2_connector_id = 4
+C2_target_id = -50
+
+[node name="WavePiece6" parent="." instance=ExtResource("1_up1bk")]
+position = Vector2(500, 628)
+music_stream = ExtResource("6_d1lip")
+piece_id = 4
+C1_connector_id = -50
+C1_target_id = 6
+C2_connector_id = 5
+C2_target_id = -50
+
+[node name="WavePiece7" parent="." instance=ExtResource("1_up1bk")]
+position = Vector2(484.00012, 842)
+rotation = -0.7853982
+music_stream = ExtResource("9_vmerw")
+piece_id = 7
+C1_connector_id = -70
+C1_target_id = 7
+C2_connector_id = 6
+C2_target_id = -70
+
+[node name="WavePiece8" parent="." instance=ExtResource("1_up1bk")]
+position = Vector2(978, 379.99997)
+rotation = 0.7853982
+music_stream = ExtResource("10_x1re1")
+piece_id = 8
+C1_connector_id = 7
+C1_target_id = -90
+C2_connector_id = -90
+C2_target_id = 8
+
+[node name="WavePiece9" parent="." instance=ExtResource("1_up1bk")]
+position = Vector2(202, 326)
+music_stream = ExtResource("8_lr2mp")
+piece_id = 6
+C1_connector_id = 8
+C1_target_id = -90
+C2_connector_id = -90
+C2_target_id = 9
+
+[node name="WavePiece10" parent="." instance=ExtResource("1_up1bk")]
+position = Vector2(427, 216)
+rotation = -1.5707964
+music_stream = ExtResource("11_sibhc")
+piece_id = 9
+C1_connector_id = 9
+C1_target_id = -100
+C2_connector_id = -100
+C2_target_id = -100
+
+[node name="FakePiece" parent="." instance=ExtResource("1_up1bk")]
+position = Vector2(1581, 589)
+C1_connector_id = -200
+C1_target_id = -200
+C2_connector_id = -200
+C2_target_id = -200
+
+[node name="FakePiece2" parent="." instance=ExtResource("1_up1bk")]
+position = Vector2(1688, 301)
+C1_connector_id = -200
+C1_target_id = -200
+C2_connector_id = -200
+C2_target_id = -200
+
+[node name="FakePiece3" parent="." instance=ExtResource("1_up1bk")]
+position = Vector2(1446.0002, 307.00012)
+rotation = -0.7853982
+C1_connector_id = -200
+C1_target_id = -200
+C2_connector_id = -200
+C2_target_id = -200
+
+[node name="FakePiece4" parent="." instance=ExtResource("1_up1bk")]
+position = Vector2(422, 361)
+rotation = 0.7853982
+C1_connector_id = -200
+C1_target_id = -200
+C2_connector_id = -200
+C2_target_id = -200

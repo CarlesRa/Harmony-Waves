@@ -1,8 +1,5 @@
 extends Node2D
 
-@export var level_bpm: float = 90.0
-@export var level_loop_beats_duration: float = 32.0
-
 func _ready() -> void:
 	GameManager.snaps_to_win = 4
 	GameManager.current_snaps = 1

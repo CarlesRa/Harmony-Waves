@@ -11,7 +11,7 @@
 script = ExtResource("1_qdh5e")
 
 [node name="WavePiece" parent="." instance=ExtResource("1_m802k")]
-position = Vector2(873.00006, 436)
+position = Vector2(871, 515)
 is_piece_connected = true
 music_stream = ExtResource("6_kfebt")
 C1_connector_id = -1
@@ -30,7 +30,7 @@ C2_connector_id = 1
 C2_target_id = 3
 
 [node name="WavePiece3" parent="." instance=ExtResource("1_m802k")]
-position = Vector2(1587.0001, 244)
+position = Vector2(1511, 437)
 rotation = 1.5707964
 music_stream = ExtResource("5_t0hvh")
 piece_id = 2
@@ -48,15 +48,30 @@ C2_connector_id = 5
 C2_target_id = -1
 
 [node name="Fake_piece_01" parent="." instance=ExtResource("1_m802k")]
-position = Vector2(979.0001, 797.00006)
+position = Vector2(998.0001, 837.00006)
 rotation = -0.7853982
 C1_connector_id = -10
 C1_target_id = -10
 C2_connector_id = -10
 C2_target_id = -10
 
+[node name="Fake_piece_05" parent="." instance=ExtResource("1_m802k")]
+position = Vector2(1214, 278.00006)
+rotation = 1.5707964
+C1_connector_id = -10
+C1_target_id = -10
+C2_connector_id = -10
+C2_target_id = -10
+
+[node name="Fake_piece_06" parent="." instance=ExtResource("1_m802k")]
+position = Vector2(1227, 869)
+C1_connector_id = -10
+C1_target_id = -10
+C2_connector_id = -10
+C2_target_id = -10
+
 [node name="Fake_piece_02" parent="." instance=ExtResource("1_m802k")]
-position = Vector2(564, 766.9999)
+position = Vector2(612, 862)
 rotation = 0.7853982
 C1_connector_id = -10
 C1_target_id = -10
@@ -64,7 +79,15 @@ C2_connector_id = -10
 C2_target_id = -10
 
 [node name="Fake_piece_03" parent="." instance=ExtResource("1_m802k")]
-position = Vector2(1502.0001, 720.00006)
+position = Vector2(1513.0001, 822.99994)
+rotation = 0.7853982
+C1_connector_id = -10
+C1_target_id = -10
+C2_connector_id = -10
+C2_target_id = -10
+
+[node name="Fake_piece_04" parent="." instance=ExtResource("1_m802k")]
+position = Vector2(738, 281.99994)
 rotation = 0.7853982
 C1_connector_id = -10
 C1_target_id = -10
