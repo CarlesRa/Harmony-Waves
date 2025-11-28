@@ -7,6 +7,7 @@ class_name WavePiece
 @export var error_sound: AudioStream
 @export var success_sound: AudioStream
 @export var drag_sound: AudioStream
+@export var piece_id: int;
 
 @export_group("Connector 1")
 @export var C1_connector_id: int = 1
@@ -35,8 +36,6 @@ func _ready() -> void:
 	_setup_audio()
 	_setup_shader()
 	GameManager.level_completed.connect(_on_level_completed)
-	if is_piece_connected:
-		start_audio_synced()
 
 func _process(_delta: float) -> void:
 	if is_dragging:
@@ -56,9 +55,14 @@ func _setup_audio() -> void:
 	add_child(audio_player)
 	if music_stream:
 		audio_player.stream = music_stream
-		audio_player.volume_db = 0
-		audio_player.bus = "Master"
+		if is_piece_connected:
+			audio_player.volume_db = 0
+		else:
+			audio_player.volume_db = -80
+
+		audio_player.bus = "Pieces"
 		audio_player.finished.connect(_on_audio_finished)
+		AudioManager.add_piece_audio_player(piece_id, audio_player)
 
 func _setup_shader() -> void:
 	if not piece_sprite:
@@ -72,49 +76,8 @@ func _setup_shader() -> void:
 	piece_sprite.material.set_shader_parameter("is_playing", is_piece_connected)
 
 func _on_audio_finished() -> void:
-	if is_piece_connected and music_stream:
+	if music_stream:
 		audio_player.play()
-
-func start_audio_synced() -> void:
-	if not music_stream or audio_player.playing:
-		return
-
-	if not AudioManager.is_playing:
-		AudioManager.start_music()
-		audio_player.stream = music_stream
-		audio_player.play()
-		
-		if piece_sprite and piece_sprite.material:
-			piece_sprite.material.set_shader_parameter("is_playing", true)
-		return
-
-	var loop_position = AudioManager.get_loop_position()
-	var sync_position = fmod(loop_position, AudioManager.total_loop_time)
-	
-	sync_position += AudioManager.output_latency
-	
-	if sync_position >= AudioManager.total_loop_time:
-		sync_position = fmod(sync_position, AudioManager.total_loop_time)
-	
-	audio_player.stream = music_stream
-	audio_player.play(sync_position)
-	
-	if piece_sprite and piece_sprite.material:
-		piece_sprite.material.set_shader_parameter("is_playing", true)
-	
-	print("Syncing piece - Loop pos: %.3f, Sync pos: %.3f, Latency: %.3f" % 
-		[loop_position, sync_position, AudioManager.output_latency])
-
-func debug_sync() -> void:
-	var loop_pos = AudioManager.get_loop_position()
-	var audio_pos = audio_player.get_playback_position()
-	var difference = abs(loop_pos - audio_pos)
-	
-	print("=== Sync Debug ===")
-	print("Loop position: %.3f" % loop_pos)
-	print("Audio position: %.3f" % audio_pos)
-	print("Difference: %.3f seconds" % difference)
-	print("Total loop time: %.3f" % AudioManager.total_loop_time)
 
 func stop_audio() -> void:
 	audio_player.stop()
@@ -180,8 +143,10 @@ func _try_snap_on_release() -> bool:
 
 	if success_sound:
 		AudioManager.play_sfx(success_sound)
-	
-	start_audio_synced()
+
+	AudioManager.play_piece_audio_player(piece_id)
+	piece_sprite.material.set_shader_parameter("is_playing", true)
+	#start_audio_synced()
 	colliding_targets.clear()
 	GameManager.current_snaps += 1
 	return true

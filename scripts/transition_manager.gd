@@ -12,7 +12,7 @@ func fade_in(duration: float = 1) -> void:
 		tween.tween_method(
 			func(value): 
 			AudioServer.set_bus_volume_db(
-				AudioServer.get_bus_index("Master"), value
+				AudioServer.get_bus_index("Pieces"), value
 			),
 			-80.0,
 			0.0,
@@ -31,7 +31,7 @@ func fade_out(duration: float = 5) -> void:
 		tween.tween_method(
 			func(value): 
 			AudioServer.set_bus_volume_db(
-				AudioServer.get_bus_index("Master"), value
+				AudioServer.get_bus_index("Pieces"), value
 			),
 			0.0,
 			-80.0,

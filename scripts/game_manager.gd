@@ -39,9 +39,8 @@ func load_next_level() -> void:
 	if current_level_number >= MAX_LEVELS:
 		pass # TODO: GAME COMPLETED!
 		return
-
+	AudioManager.reset_pieces_audio()
 	await TransitionManager.fade_out()
-	AudioManager.reset()
 	unload_level()
 	await get_tree().process_frame
 	load_level(current_level_number + 1)
@@ -67,9 +66,8 @@ func load_level_overlapping(level_path: String) -> void:
 		return
 
 	level_container.add_child(level_scene.instantiate())
-	
 
-func unload_level() -> void:
+func unload_level() -> void:	
 	if level_container:
 		for child in level_container.get_children():
 			_recursive_stop_and_destroy(child)
