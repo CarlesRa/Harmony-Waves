@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cvopl44y2w53g"]
+[gd_scene load_steps=15 format=3 uid="uid://cvopl44y2w53g"]
 
 [ext_resource type="Script" uid="uid://cen5lq5w1moqa" path="res://scripts/main_game.gd" id="1_0rdsr"]
 [ext_resource type="StyleBox" uid="uid://sh88fli7vay3" path="res://assets/styles/neon_style.tres" id="2_72e8q"]
@@ -7,6 +7,9 @@
 [ext_resource type="VideoStream" uid="uid://do8rsrpgwcukv" path="res://assets/hud/background_animated.ogv" id="5_wi4c7"]
 [ext_resource type="Script" uid="uid://g0v82rbus2cj" path="res://scripts/shared/toolbar.gd" id="5_ygxny"]
 [ext_resource type="Script" uid="uid://spe3fe5impei" path="res://scripts/shared/mute_button.gd" id="6_wi4c7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_70vka"]
+resource_local_to_scene = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wi4c7"]
 bg_color = Color(0, 0, 0, 1)
@@ -78,8 +81,10 @@ script = ExtResource("5_ygxny")
 
 [node name="LevelLabel" type="Label" parent="HUD/Toolbar/InfoBar_Layout/ToolbarItem"]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_70vka")
 layout_mode = 2
 size_flags_horizontal = 0
+theme = ExtResource("2_d2op2")
 text = "Level "
 
 [node name="SnapsToWinLabel" type="Label" parent="HUD/Toolbar/InfoBar_Layout/ToolbarItem"]

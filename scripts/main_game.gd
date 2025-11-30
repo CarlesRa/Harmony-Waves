@@ -9,5 +9,5 @@ func _ready() -> void:
 	GameManager.load_level(1)
 
 func _go_to_level_complete_scene():
-	GameManager.load_level_overlapping("res://scenes/shared/level_completed.tscn")
+	GameManager.load_level_overlapping("res://scenes/ui/level_completed.tscn")
 	

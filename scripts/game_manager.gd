@@ -10,7 +10,7 @@ const BASE_LEVEL_LABEL = "Level %d"
 const MAX_LEVELS = 6
 
 var current_level: Node = null
-var current_level_number: int = 1
+var current_level_number: int = 0
 var level_container: Node = null
 var _snaps_to_win: int = 4
 var _current_snaps: int = 1
@@ -34,7 +34,7 @@ var current_snaps:
 
 func set_level_container(container: Node) -> void:
 	level_container = container
-	
+
 func load_next_level() -> void:
 	if current_level_number >= MAX_LEVELS:
 		pass # TODO: GAME COMPLETED!
@@ -49,6 +49,7 @@ func load_next_level() -> void:
 func load_level(level_number: int) -> void:
 	var level_label = BASE_LEVEL_LABEL % level_number
 	var level_path = BASE_LEVEL_PATH % level_number
+	print("charging level: ", level_path)
 	var level_scene = load(level_path)
 
 	if !level_scene:
