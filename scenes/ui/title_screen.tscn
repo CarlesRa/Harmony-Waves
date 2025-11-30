@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://jo1w3b366om6"]
+[gd_scene load_steps=7 format=3 uid="uid://jo1w3b366om6"]
 
 [ext_resource type="Script" uid="uid://cs45tuec7fumx" path="res://scripts/ui/title_screen.gd" id="1_eb34j"]
 [ext_resource type="Shader" uid="uid://cubaf4niixkee" path="res://assets/shaders/backgroun_shader.gdshader" id="2_aqpy5"]
 [ext_resource type="FontFile" uid="uid://chjp582vkc0a5" path="res://assets/fonts/NeonSans.ttf" id="3_w8uqo"]
+[ext_resource type="AudioStream" uid="uid://bxfvmvm53p2ev" path="res://assets/music/title_screen_music.mp3" id="4_a4ium"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eb34j"]
 render_priority = 0
@@ -92,3 +93,9 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("3_w8uqo")
 theme_override_font_sizes/font_size = 100
 text = "QUIT"
+
+[node name="TitlePlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_a4ium")
+autoplay = true
+parameters/looping = true

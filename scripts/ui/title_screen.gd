@@ -6,6 +6,7 @@ extends Control
 @onready var play_button = $VBoxContainer/MenuContainer/PlayButton
 @onready var quit_button = $VBoxContainer/MenuContainer/QuitButton
 @onready var background = $Background
+@onready var title_player = $TitlePlayer
 
 var time_passed = 0.0
 
@@ -33,6 +34,7 @@ func _process(delta):
 	subtitle_label.modulate = Color(0.0, 1.0 + glow * 0.3, 1.0 + glow * 0.3, 1.0)
 
 func _on_play_pressed():
+	AudioManager.fade_out(title_player)
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:a", 0.0, 0.5)
 	tween.tween_callback(func(): 

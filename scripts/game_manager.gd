@@ -7,7 +7,7 @@ signal level_completed(level_completed)
 
 const BASE_LEVEL_PATH = "res://scenes/levels/level_%02d.tscn"
 const BASE_LEVEL_LABEL = "Level %d"
-const MAX_LEVELS = 6
+const MAX_LEVELS = 4
 
 var current_level: Node = null
 var current_level_number: int = 0
@@ -37,7 +37,7 @@ func set_level_container(container: Node) -> void:
 
 func load_next_level() -> void:
 	if current_level_number >= MAX_LEVELS:
-		pass # TODO: GAME COMPLETED!
+		get_tree().change_scene_to_file("res://scenes/ui/credits_screen.tscn")
 		return
 	AudioManager.reset_pieces_audio()
 	await TransitionManager.fade_out()

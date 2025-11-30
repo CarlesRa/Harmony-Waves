@@ -1,0 +1,138 @@
+[gd_scene load_steps=8 format=3 uid="uid://bruilteqslcur"]
+
+[ext_resource type="FontFile" uid="uid://chjp582vkc0a5" path="res://assets/fonts/NeonSans.ttf" id="1_1g384"]
+[ext_resource type="Shader" uid="uid://cmrndxx06biyp" path="res://assets/shaders/text_shader.gdshader" id="1_uwft3"]
+[ext_resource type="AudioStream" uid="uid://bxfvmvm53p2ev" path="res://assets/music/title_screen_music.mp3" id="3_h6ve6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h6ve6"]
+render_priority = 0
+shader = ExtResource("1_uwft3")
+
+[sub_resource type="Animation" id="Animation_uwft3"]
+resource_name = "text_animation"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Credits:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(293, 1104), Vector2(293, 346)]
+}
+
+[sub_resource type="Animation" id="Animation_h6ve6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Credits:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(293, 1104)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0irp7"]
+_data = {
+&"RESET": SubResource("Animation_h6ve6"),
+&"text_animation": SubResource("Animation_uwft3")
+}
+
+[node name="CreditsScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="VBoxContainer" parent="."]
+material = SubResource("ShaderMaterial_h6ve6")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Spacer" type="Control" parent="Title"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Title"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("1_1g384")
+theme_override_font_sizes/font_size = 120
+text = "Thanks for playing!!"
+
+[node name="Credits" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 293.0
+offset_top = 1104.0
+offset_right = 1631.0
+offset_bottom = 1875.9978
+
+[node name="Label" type="Label" parent="Credits"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 18
+text = "This project wouldn’t have been possible without the support and inspiration of this amazing community."
+
+[node name="Control" type="Control" parent="Credits"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Credits"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 18
+text = "I want to express my gratitude to the Game Off 2025 organizers for creating a space where we can learn, experiment, and share our ideas."
+
+[node name="Control2" type="Control" parent="Credits"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="Credits"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "A special thanks as well to the artists who created the music and visual loops used in this game; your work brings life, rhythm, and soul to every moment."
+
+[node name="Control3" type="Control" parent="Credits"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Label4" type="Label" parent="Credits"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 18
+text = "I’m truly grateful to be part of this community—so creative, welcoming, and full of passion.
+See you in the next adventure."
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_0irp7")
+}
+autoplay = "text_animation"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_h6ve6")
+autoplay = true
+parameters/looping = true
